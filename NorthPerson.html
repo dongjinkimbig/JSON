@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>북의 주요 인물</title>
+    
+    <script>
+        function fetchAPI(){
+            return fetch('https://apis.data.go.kr/1250000/prsn/getPrsn?ServiceKey=Vxe3X8WHTl6Eu706rjeVqKzZZm9JZ79oV4J0vmkut3UZ9MRG06Yh78vRE08zpJhPCtOOqQf9NyMMRlZ2Ylh%2BlQ%3D%3D&pageNo=1&numOfRows=10&sexdstn=1&nk_prsn_death_at=N&bgng_ymd=19300101&end_ymd=20201212')
+            .then((response) => response.json())
+            .then((data) => data);
+        }
+        fetchAPI().then((datas) => {
+            console.log(datas.items);
+            showDatas(datas.items);
+        });
+        function showDatas(datas){
+            const ulElement = document.querySelector('#items');
+            ulElement.innerHTML = datas.map((data) => setLiElement(data)).join('');
+        }
+        function setLiElement(data){
+            return `
+            <div id="div1">
+            <p id="k_nm">한국식 이름: ${data.korean_nm}</p>
+            <p>성별 코드: ${data.sexdstn}</p>
+            <p>사망 여부: ${data.nk_prsn_death_at}</p>
+            <p>사망 일자: ${data.nk_prsn_death_de}</p>
+            <p>북식 이름: ${data.nm}</p>
+            <p>직책: ${data.rspofc}</p>
+            <p>출생: ${data.brth}</p>
+            <p>출생지: ${data.birthplace}</p></div>`;
+
+            if(!korean_nm || korean_nm==''){
+            document.getElementById("k_nm").innerHTML("해당없음");
+        }
+        }
+
+
+        function fetchAPI2(){
+            return fetch('https://apis.data.go.kr/1250000/prsn/getPrsn?ServiceKey=Vxe3X8WHTl6Eu706rjeVqKzZZm9JZ79oV4J0vmkut3UZ9MRG06Yh78vRE08zpJhPCtOOqQf9NyMMRlZ2Ylh%2BlQ%3D%3D&pageNo=2&numOfRows=10&sexdstn=1&nk_prsn_death_at=N&bgng_ymd=19300101&end_ymd=20201212')
+            .then((response) => response.json())
+            .then((data) => data);
+        }
+        fetchAPI2().then((datas) => {
+            console.log(datas.items);
+            showDatas2(datas.items);
+        });
+        function showDatas2(datas){
+            const ulElement = document.querySelector('#items2');
+            ulElement.innerHTML = datas.map((data) => setLiElement2(data)).join('');
+        }
+        function setLiElement2(data){
+            return `
+            <div id="div1">
+            <p>한국식 이름: ${data.korean_nm}</p>
+            <p>성별 코드: ${data.sexdstn}</p>
+            <p>사망 여부: ${data.nk_prsn_death_at}</p>
+            <p>사망 일자: ${data.nk_prsn_death_de}</p>
+            <p>북식 이름: ${data.nm}</p>
+            <p>직책: ${data.rspofc}</p>
+            <p>출생: ${data.brth}</p>
+            <p>출생지: ${data.birthplace}</p></div>`;
+
+            if(!data.korean_nm || data.korean_nm==''){
+            document.getElementById("k_nm").innerHTML("해당없음");
+        }
+        }
+        // function getProperty(key,value){
+        //     let result = key[value];
+        //     if(!value || value==""){
+        //         value="해당없음";
+        //     }
+        //     return result;
+        // }
+
+        
+    </script>
+    
+    <link rel="stylesheet" href="./NorthPerson.css">
+</head>
+<body>
+    <h2>북의 주요 인물</h2>
+    <ul id="items">
+        
+    </ul>
+    <ul id="items2">
+        
+    </ul>
+
+
+</body>
+</html>
